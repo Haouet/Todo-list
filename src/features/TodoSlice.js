@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const initialState = {
+const initialState = 
+{
   count: 0,
-  todos: [],
-  isDone: false,
+  todos: 
+  [
+ 
+]
+  
 };
 
 export const todoSlice = createSlice({
@@ -25,8 +29,16 @@ export const todoSlice = createSlice({
       state.count -= 1;
     },
     isDoneTodo: (state, action) => {
-      state.todos = state.todos.filter((todo) => todo.isDone === action.payload);
+      const index = state.todos.findIndex(
+        (todo) => todo.id === action.payload.id,
+      );
+      console.log(index);
+      state.todos[index].isDone = action.payload.isDone;
+      // state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      // state.isDone = state.isDone.map((todo) => todo.isDone === action.payload);
       
+      
+     
      
      
     },

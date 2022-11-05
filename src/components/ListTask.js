@@ -9,11 +9,10 @@ import { removeTodo,isDoneTodo  } from "../features/TodoSlice";
 export default function ListTask() {
 
  
-
- 
   // 👇️use selector store
   const count = useSelector((state) => state.todo.count);
   const todos = useSelector((state) => state.todo.todos);
+  const isDone = useSelector((state) => state.todo.isDone);
   
 
   const [filteredList, setFilteredList] = useState(todos);
@@ -21,7 +20,7 @@ export default function ListTask() {
   const [filtered, setFiltered] = useState(false);
   // 👇️dispatch store
   const dispatch = useDispatch();
-  // 👇️ action sur input 
+  
   
 
   const handleTodoDone = (id) => {
@@ -33,7 +32,9 @@ export default function ListTask() {
     
     setFiltered(!filtered)
     setFilteredList(filteredList.filter(todo => {
-      return todo.isDone === filterByDone
+        
+      
+      return todo.isDone === filterByDone;
     }))
   }
   return (
@@ -56,14 +57,17 @@ export default function ListTask() {
         )}
       </div>
       <div className="Todos">
-        {count > 0 &&
+        {count > 0 && 
           todos.map((todo) => (
+            
             <Task 
             key={todo.id} {...todo}
               onCheck={handleTodoDone}
+              
             
             />
-          ))}
+          ) )}
+         
         {count === 0 && <p>No todos</p>}
       </div>
     </div>

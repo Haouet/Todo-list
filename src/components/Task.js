@@ -1,29 +1,37 @@
-import { useState } from "react";
 
-const Task = (props) => {
-   
-   const [ByDone, setByDone] = useState(false);
-    
-    const deleteTodo = () => {
-      props.onCheck(props.id);
-    };
-    function isDone () { 
-    console.log(ByDone);
-        setByDone(!ByDone);
-      
-       
-      };   
-    return (
-      <div className="todo" >
-        <label>{props.text} | </label>  
-        <label>Remove</label>
-        <input type="radio" value={props.isDone} onClick={deleteTodo}></input> 
-       <label>Is Done</label> 
-        <input type="checkbox" value={ByDone} onClick={isDone}></input>
+import { useDispatch } from "react-redux";
+import { isDoneTodo } from "../features/TodoSlice";
+const Task = ({ id, text, isDone  }) => {
+
+    const dispatch = useDispatch();
+    // const deleteTodo = (e) => {
+    //         e.stopPropagation();
+    //         dispatch(onCheck(id));
         
-      </div>
+      
+    // };
+    const handleClick = (e) => {
+        e.stopPropagation();
+        dispatch(
+            isDoneTodo(
+                {
+                    id: id,
+                    isDone: !isDone
+                }
+            ));
+    };
+    return (
+        <div className="todo" >
+            
+            
+            <label>{text}</label>
+            {/* <label>Remove</label>
+        <input type="radio" value={isDone} onClick={deleteTodo}></input>  */}
+        <input type="checkbox"   className="mr-3"
+         checked={isDone} onChange={handleClick}></input>
+           
+        </div> 
     );
-  };
-  
-  export default Task;
-  
+};
+
+export default Task;
